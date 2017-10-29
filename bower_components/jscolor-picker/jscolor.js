@@ -174,6 +174,7 @@ if (!window.jscolor) {
                     // IE
                     document.attachEvent('onreadystatechange', function () {
                         if (document.readyState === 'complete') {
+                            //noinspection JSAnnotator
                             document.detachEvent('onreadystatechange', arguments.callee);
                             fireOnce();
                         }

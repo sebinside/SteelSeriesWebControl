@@ -9,8 +9,62 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <script src="bower_components/jscolor-picker/jscolor.min.js"></script>
 
+    <script src="js/control.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+
 </head>
 <body>
-<h1>Hello World!</h1>
+<div class="row" id="mainContent">
+    <div class="col-md-3">
+        <h2>GameSense</h2>
+
+        <div id="gameSensePort">
+            <h4>GameSense Server Adresse</h4>
+            <p>127.0.0.1: <input type="number" id="gameSensePortNumber"></p>
+            <button type="button" class="btn btn-outline-primary btn-sm">Suche Port (Windows)</button>
+            <button type="button" class="btn btn-outline-secondary btn-sm">Suche Port (Mac OS)</button>
+        </div>
+
+        <div id="gameSenseConnection">
+            <h4>GameSense Verbindung</h4>
+            <div class="alert alert-warning" role="alert">
+                Noch keine Verbindung hergestellt...
+            </div>
+            <div class="alert alert-success" role="alert">
+                Verbindung erfolgreich hergestellt!
+            </div>
+            <div class="alert alert-danger" role="alert">
+                Fehler beim Herstellen der Verbindung.
+            </div>
+            <div class="alert alert-info" role="alert">
+                Registrierung erfolgreich gelöscht!
+            </div>
+            <button type="button" class="btn btn-success">WebControl registrieren</button>
+            <button type="button" class="btn btn-danger">Verbindung löschen</button>
+        </div>
+
+        <div id="gameSenseRefresh">
+            <h4>GameSense Heartbeat</h4>
+            <p><input type="checkbox" checked> 10 Sekunden Herzschlag aktivieren</p>
+            <small>Ohne Rückmeldung wird WebControl nach 15 Sekunden deaktiviert!</small>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <h2>Maus</h2>
+
+        <div id="mouseColor">
+            <h4>Beleuchtungs-Farbe</h4>
+            <p>Logo: <input class="jscolor" value="AAAAAA"></p>
+            <p>Mausrad: <input class="jscolor" value="AAAAAA"></p>
+            <button type="button" class="btn btn-primary">Beleuchtung aktualisieren</button>
+        </div>
+        <h4>Vibrationskontrolle</h4>
+
+        <h4>Displaykontrolle</h4>
+    </div>
+    <div class="col-md-3"><h2>MousePad</h2></div>
+    <div class="col-md-3"><h2>Tastatur</h2></div>
+</div>
 </body>
 </html>

@@ -1,0 +1,17 @@
+#mainContent {
+    padding-left:10px;
+    padding-right:10px;
+}
+
+#mainContent > div {
+    background-color: #f8f8f8;
+    padding-bottom: 20px;
+}
+
+#mainContent > div:nth-child(2n) {
+    background-color: #f2f2f2;
+}
+
+h4 {
+    padding-top: 20px
+}
