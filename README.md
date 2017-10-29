@@ -4,7 +4,8 @@ _SteelSeries Web Control_ ist eine simple Web-Oberfläche für die [SteelSeries 
 
 ## Abhängigkeiten
 Das Projekt basiert auf simpler HTML5-Technologie und nutzt zur Darstellung die Bibliotheken jQuery (MIT), Bootstrap (MIT) und JS-Color (GPLv3).
-Die Abhängigkeiten werden mit Hilfe von *bower* verwaltet, du kannst diese optional mit ```bower update``` aktuell halten.
+Die Abhängigkeiten werden mit Hilfe von *bower* verwaltet, du kannst diese optional mit ```bower update``` aktuell halten. 
+Alle Abhängigkeiten sind bereits enhalten (siehe [StackOverflow](https://stackoverflow.com/questions/22327758/should-bower-components-be-gitignored)).
 
 ## Dokumentation
 Dieses Projekt beinhaltet keine vollständige Client-Bibliothek oder Dokumentation und ist somit eher als Proof-Of-Concept zu verstehen.
