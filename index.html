@@ -21,31 +21,39 @@
         <div id="gameSensePort">
             <h4>GameSense Server Adresse</h4>
             <p>127.0.0.1: <input type="number" id="gameSensePortNumber"></p>
-            <button type="button" class="btn btn-outline-primary btn-sm">Suche Port (Windows)</button>
-            <button type="button" class="btn btn-outline-secondary btn-sm">Suche Port (Mac OS)</button>
+            <button type="button" class="btn btn-outline-primary btn-sm" onclick="Control.openPortFile(true)">Suche Port
+                (Windows)
+            </button>
+            <button type="button" class="btn btn-outline-secondary btn-sm" onclick="Control.openPortFile(false)">Suche
+                Port
+                (Mac OS)
+            </button>
         </div>
 
         <div id="gameSenseConnection">
             <h4>GameSense Verbindung</h4>
-            <div class="alert alert-warning" role="alert">
+            <div class="alert alert-warning" role="alert" id="AlertInitConnection">
                 Noch keine Verbindung hergestellt...
             </div>
-            <div class="alert alert-success" role="alert">
+            <div class="alert alert-success" role="alert" id="AlertConnected">
                 Verbindung erfolgreich hergestellt!
             </div>
-            <div class="alert alert-danger" role="alert">
+            <div class="alert alert-danger" role="alert" id="AlertConnectionError">
                 Fehler beim Herstellen der Verbindung.
             </div>
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info" role="alert" id="AlertConnectionAborted">
                 Registrierung erfolgreich gelöscht!
             </div>
-            <button type="button" class="btn btn-success">WebControl registrieren</button>
-            <button type="button" class="btn btn-danger">Verbindung löschen</button>
+            <button type="button" class="btn btn-success" onclick="Control.registerWebControlGame()">WebControl
+                registrieren
+            </button>
+            <button type="button" class="btn btn-danger" onclick="Control.unregisterGame()">Verbindung löschen</button>
         </div>
 
         <div id="gameSenseRefresh">
             <h4>GameSense Heartbeat</h4>
-            <p><input type="checkbox" checked> 10 Sekunden Herzschlag aktivieren</p>
+            <p><input type="checkbox" checked onchange="Control.changeHeartBeat()"> 10 Sekunden Herzschlag aktivieren
+            </p>
             <small>Ohne Rückmeldung wird WebControl nach 15 Sekunden deaktiviert!</small>
         </div>
     </div>
@@ -55,16 +63,157 @@
 
         <div id="mouseColor">
             <h4>Beleuchtungs-Farbe</h4>
-            <p>Logo: <input class="jscolor" value="AAAAAA"></p>
-            <p>Mausrad: <input class="jscolor" value="AAAAAA"></p>
-            <button type="button" class="btn btn-primary">Beleuchtung aktualisieren</button>
+            <p>Logo: <input class="jscolor" value="AAAAAA" id="mouseColorLogo"></p>
+            <p>Mausrad: <input class="jscolor" value="AAAAAA" id="mouseColorWheel"></p>
+            <button type="button" class="btn btn-primary" onclick="Control.updateMouseColor(true)">Beleuchtung
+                aktualisieren
+            </button>
+            <button type="button" class="btn btn-outline-secondary" onclick="Control.updateMouseColor(false)">Licht
+                aus!
+            </button>
         </div>
-        <h4>Vibrationskontrolle</h4>
+
+        <div id="mouseVibration">
+            <h4>Vibrationskontrolle</h4>
+
+            <p>Muster wählen: <select name="Vordefinierte Muster" id="tactilePattern">
+                <option>ti_predefined_strongclick_100</option>
+                <option>ti_predefined_strongclick_60</option>
+                <option>ti_predefined_strongclick_30</option>
+                <option>ti_predefined_sharpclick_100</option>
+                <option>ti_predefined_sharpclick_60</option>
+                <option>ti_predefined_sharpclick_30</option>
+                <option>ti_predefined_softbump_100</option>
+                <option>ti_predefined_softbump_60</option>
+                <option>ti_predefined_softbump_30</option>
+                <option>ti_predefined_doubleclick_100</option>
+                <option>ti_predefined_doubleclick_60</option>
+                <option>ti_predefined_tripleclick_100</option>
+                <option>ti_predefined_softfuzz_60</option>
+                <option>ti_predefined_strongbuzz_100</option>
+                <option>ti_predefined_buzzalert750ms</option>
+                <option>ti_predefined_buzzalert1000ms</option>
+                <option>ti_predefined_strongclick1_100</option>
+                <option>ti_predefined_strongclick2_80</option>
+                <option>ti_predefined_strongclick3_60</option>
+                <option>ti_predefined_strongclick4_30</option>
+                <option>ti_predefined_mediumclick1_100</option>
+                <option>ti_predefined_mediumclick2_80</option>
+                <option>ti_predefined_mediumclick3_60</option>
+                <option>ti_predefined_sharptick1_100</option>
+                <option>ti_predefined_sharptick2_80</option>
+                <option>ti_predefined_sharptick3_60</option>
+                <option>ti_predefined_shortdoubleclickstrong1_100</option>
+                <option>ti_predefined_shortdoubleclickstrong2_80</option>
+                <option>ti_predefined_shortdoubleclickstrong3_60</option>
+                <option>ti_predefined_shortdoubleclickstrong4_30</option>
+                <option>ti_predefined_shortdoubleclickmedium1_100</option>
+                <option>ti_predefined_shortdoubleclickmedium2_80</option>
+                <option>ti_predefined_shortdoubleclickmedium3_60</option>
+                <option>ti_predefined_shortdoublesharptick1_100</option>
+                <option>ti_predefined_shortdoublesharptick2_80</option>
+                <option>ti_predefined_shortdoublesharptick3_60</option>
+                <option>ti_predefined_longdoublesharpclickstrong1_100</option>
+                <option>ti_predefined_longdoublesharpclickstrong2_80</option>
+                <option>ti_predefined_longdoublesharpclickstrong3_60</option>
+                <option>ti_predefined_longdoublesharpclickstrong4_30</option>
+                <option>ti_predefined_longdoublesharpclickmedium1_100</option>
+                <option>ti_predefined_longdoublesharpclickmedium2_80</option>
+                <option>ti_predefined_longdoublesharpclickmedium3_60</option>
+                <option>ti_predefined_longdoublesharptick1_100</option>
+                <option>ti_predefined_longdoublesharptick2_80</option>
+                <option>ti_predefined_longdoublesharptick3_60</option>
+                <option>ti_predefined_buzz1_100</option>
+                <option>ti_predefined_buzz2_80</option>
+                <option>ti_predefined_buzz3_60</option>
+                <option>ti_predefined_buzz4_40</option>
+                <option>ti_predefined_buzz5_20</option>
+                <option>ti_predefined_pulsingstrong1_100</option>
+                <option>ti_predefined_pulsingstrong2_60</option>
+                <option>ti_predefined_pulsingmedium1_100</option>
+                <option>ti_predefined_pulsingmedium2_60</option>
+                <option>ti_predefined_pulsingsharp1_100</option>
+                <option>ti_predefined_pulsingsharp2_60</option>
+                <option>ti_predefined_transitionclick1_100</option>
+                <option>ti_predefined_transitionclick2_80</option>
+                <option>ti_predefined_transitionclick3_60</option>
+                <option>ti_predefined_transitionclick4_40</option>
+                <option>ti_predefined_transitionclick5_20</option>
+                <option>ti_predefined_transitionclick6_10</option>
+                <option>ti_predefined_transitionhum1_100</option>
+                <option>ti_predefined_transitionhum2_80</option>
+                <option>ti_predefined_transitionhum3_60</option>
+                <option>ti_predefined_transitionhum4_40</option>
+                <option>ti_predefined_transitionhum5_20</option>
+                <option>ti_predefined_transitionhum6_10</option>
+                <option>ti_predefined_transitionrampdownlongsmooth1_100to0</option>
+                <option>ti_predefined_transitionrampdownlongsmooth2_100to0</option>
+                <option>ti_predefined_transitionrampdownmediumsmooth1_100to0</option>
+                <option>ti_predefined_transitionrampdownmediumsmooth2_100to0</option>
+                <option>ti_predefined_transitionrampdownshortsmooth1_100to0</option>
+                <option>ti_predefined_transitionrampdownshortsmooth2_100to0</option>
+                <option>ti_predefined_transitionrampdownlongsharp1_100to0</option>
+                <option>ti_predefined_transitionrampdownlongsharp2_100to0</option>
+                <option>ti_predefined_transitionrampdownmediumsharp1_100to0</option>
+                <option>ti_predefined_transitionrampdownmediumsharp2_100to0</option>
+                <option>ti_predefined_transitionrampdownshortsharp1_100to0</option>
+                <option>ti_predefined_transitionrampdownshortsharp2_100to0</option>
+                <option>ti_predefined_transitionrampuplongsmooth1_0to100</option>
+                <option>ti_predefined_transitionrampuplongsmooth2_0to100</option>
+                <option>ti_predefined_transitionrampupmediumsmooth1_0to100</option>
+                <option>ti_predefined_transitionrampupmediumsmooth2_0to100</option>
+                <option>ti_predefined_transitionrampupshortsmooth1_0to100</option>
+                <option>ti_predefined_transitionrampupshortsmooth2_0to100</option>
+                <option>ti_predefined_transitionrampuplongsharp1_0to100</option>
+                <option>ti_predefined_transitionrampuplongsharp2_0to100</option>
+                <option>ti_predefined_transitionrampupmediumsharp1_0to100</option>
+                <option>ti_predefined_transitionrampupmediumsharp2_0to100</option>
+                <option>ti_predefined_transitionrampupshortsharp1_0to100</option>
+                <option>ti_predefined_transitionrampupshortsharp2_0to100</option>
+                <option>ti_predefined_transitionrampdownlongsmooth1_50to0</option>
+                <option>ti_predefined_transitionrampdownlongsmooth2_50to0</option>
+                <option>ti_predefined_transitionrampdownmediumsmooth1_50to0</option>
+                <option>ti_predefined_transitionrampdownmediumsmooth2_50to0</option>
+                <option>ti_predefined_transitionrampdownshortsmooth1_50to0</option>
+                <option>ti_predefined_transitionrampdownshortsmooth2_50to0</option>
+                <option>ti_predefined_transitionrampdownlongsharp1_50to0</option>
+                <option>ti_predefined_transitionrampdownlongsharp2_50to0</option>
+                <option>ti_predefined_transitionrampdownmediumsharp1_50to0</option>
+                <option>ti_predefined_transitionrampdownmediumsharp2_50to0</option>
+                <option>ti_predefined_transitionrampdownshortsharp1_50to0</option>
+                <option>ti_predefined_transitionrampdownshortsharp2_50to0</option>
+                <option>ti_predefined_transitionrampuplongsmooth1_0to50</option>
+                <option>ti_predefined_transitionrampuplongsmooth2_0to50</option>
+                <option>ti_predefined_transitionrampupmediumsmooth1_0to50</option>
+                <option>ti_predefined_transitionrampupmediumsmooth2_0to50</option>
+                <option>ti_predefined_transitionrampupshortsmooth1_0to50</option>
+                <option>ti_predefined_transitionrampupshortsmooth2_0to50</option>
+                <option>ti_predefined_transitionrampuplongsharp1_0to50</option>
+                <option>ti_predefined_transitionrampuplongsharp2_0to50</option>
+                <option>ti_predefined_transitionrampupmediumsharp1_0to50</option>
+                <option>ti_predefined_transitionrampupmediumsharp2_0to50</option>
+                <option>ti_predefined_transitionrampupshortsharp1_0to50</option>
+                <option>ti_predefined_transitionrampupshortsharp2_0to50</option>
+                <option>ti_predefined_longbuzzforprogrammaticstopping_100</option>
+                <option>ti_predefined_smoothhum1nokickorbrakepulse_50</option>
+                <option>ti_predefined_smoothhum2nokickorbrakepulse_40</option>
+                <option>ti_predefined_smoothhum3nokickorbrakepulse_30</option>
+                <option>ti_predefined_smoothhum4nokickorbrakepulse_20</option>
+                <option>ti_predefined_smoothhum5nokickorbrakepulse_10</option>
+            </select></p>
+
+            <button type="button" class="btn btn-primary" onclick="Control.sendTactilePattern()">Vibrieren!</button>
+            <button type="button" class="btn btn-dark" onclick="Control.sendLongVibration()">2,5 Sekunden vibrieren
+            </button>
+        </div>
 
         <h4>Displaykontrolle</h4>
     </div>
-    <div class="col-md-3"><h2>MousePad</h2></div>
     <div class="col-md-3"><h2>Tastatur</h2></div>
+    <div class="col-md-3"><h2>MousePad</h2></div>
 </div>
+<script type="text/javascript">
+    Control.init()
+</script>
 </body>
 </html>
