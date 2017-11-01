@@ -38,19 +38,19 @@ var Control = {
         }
     },
     showConnectionMessage: function (number) {
-        var alerts = [document.getElementById("AlertInitConnection"),
-            document.getElementById("AlertConnected"),
-            document.getElementById("AlertConnectionError"),
-            document.getElementById("AlertConnectionAborted")];
+        var alerts = [$("#AlertInitConnection"),
+            $("#AlertConnected"),
+            $("#AlertConnectionError"),
+            $("#AlertConnectionAborted")];
 
         alerts.forEach(function (d, i) {
-            d.style.display = "none";
+            d.hide();
         });
 
-        alerts[number].style.display = "block";
+        alerts[number].show();
     },
     makeURL: function (endPoint) {
-        var port = document.getElementById("gameSensePortNumber").value;
+        var port = $("#gameSensePortNumber").val();
         var fullAddress = this.baseAddress + ":" + port + endPoint;
         console.log("Created request URL: " + fullAddress);
         return fullAddress;
@@ -143,8 +143,8 @@ var Control = {
 
     },
     updateMouseColor: function (lightOn) {
-        var logo = document.getElementById("mouseColorLogo").jscolor.rgb;
-        var wheel = document.getElementById("mouseColorWheel").jscolor.rgb;
+        var logo = $("#mouseColorLogo")[0].jscolor.rgb;
+        var wheel = $("#mouseColorWheel")[0].jscolor.rgb;
 
         var light = 1;
         if (!lightOn)
@@ -170,7 +170,7 @@ var Control = {
         this.sendGenericEvent(mouseEventName, handlers, light);
     },
     sendTactilePattern: function () {
-        var pattern = document.getElementById("tactilePattern").value;
+        var pattern = $("#tactilePattern").val();
 
         console.log("Predefined tactile pattern: '" + pattern + "'.");
 
@@ -206,6 +206,32 @@ var Control = {
         var mouseTactileEventName = "MOUSE_TACTILE";
 
         this.sendGenericEvent(mouseTactileEventName, handlers, 100);
+    },
+    sendStaticText: function () {
+        var text = $("mouseStaticText").val();
+
+        var handlers = [
+            {
+                "device-type": "screened",
+                "zone": "one",
+                "mode": "screen",
+                "datas": [
+                    {
+                        "has-text": true
+                    }
+                ]
+            }
+        ];
+
+        var mouseScreenEventName = "MOUSE_SCREEN";
+
+        this.sendGenericEvent(mouseScreenEventName, handlers, text);
+    },
+    sendNumberText: function () {
+
+    },
+    sendHelloWorldAnimation: function () {
+
     }
 
 };
