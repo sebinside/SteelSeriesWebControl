@@ -1,6 +1,6 @@
 #mainContent {
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #mainContent > div {
@@ -18,4 +18,26 @@ h4 {
 
 #tactilePattern {
     max-width: 250px;
+}
+
+#WASDpresenter {
+    width:180px;
+    margin: 0 auto;
+    margin-top:25px;
+}
+
+#WASDpresenter > div > div {
+    height: 50px;
+    width: 50px;
+    margin:5px;
+}
+
+.key {
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    font-size: 12pt;
+    vertical-align: middle;
+    line-height: 50px;
+    background: gray;
 }

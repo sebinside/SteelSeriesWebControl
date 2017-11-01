@@ -208,7 +208,7 @@ var Control = {
         this.sendGenericEvent(mouseTactileEventName, handlers, 100);
     },
     sendStaticText: function () {
-        var text = $("mouseStaticText").val();
+        var text = $("#mouseStaticText").val();
 
         var handlers = [
             {
@@ -228,10 +228,147 @@ var Control = {
         this.sendGenericEvent(mouseScreenEventName, handlers, text);
     },
     sendNumberText: function () {
+        var number = $("#mouseNumber").val();
 
+        var handlers = [
+            {
+                "device-type": "screened",
+                "zone": "one",
+                "mode": "screen",
+                "datas": [
+                    {
+                        "has-text": true,
+                        "prefix": "Du bist #",
+                        "icon-id": Math.floor((Math.random() * 17) + 1)
+                    }
+                ]
+            }
+        ];
+
+        var mouseScreenEventName = "MOUSE_SCREEN";
+
+        this.sendGenericEvent(mouseScreenEventName, handlers, number);
     },
     sendHelloWorldAnimation: function () {
 
+        var handlers = [
+            {
+                "device-type": "screened",
+                "zone": "one",
+                "mode": "screen",
+                "datas": [
+                    {
+                        "has-text": true,
+                        "suffix": "Hello",
+                        "length-millis": 500
+                    },
+                    {
+                        "has-text": true,
+                        "suffix": "World!",
+                        "length-millis": 500,
+                        "repeats": 3
+                    }
+                ]
+            }
+        ];
+
+        var mouseScreenEventName = "MOUSE_SCREEN";
+
+        this.sendGenericEvent(mouseScreenEventName, handlers, "");
+    },
+    sendKeyBoardColor: function () {
+
+        var mainColor = $("#keyColorMain")[0].jscolor.rgb;
+        var functionColor = $("#keyColorFunction")[0].jscolor.rgb;
+        var numColor = $("#keyColorNum")[0].jscolor.rgb;
+        var numPadColor = $("#keyColorNumPad")[0].jscolor.rgb;
+
+        var handlers = [
+            {
+                "device-type": "keyboard",
+                "zone": "main-keyboard",
+                "mode": "color",
+                "color": {"red": mainColor[0], "green": mainColor[1], "blue": mainColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "function-keys",
+                "mode": "color",
+                "color": {"red": functionColor[0], "green": functionColor[1], "blue": functionColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "number-keys",
+                "mode": "color",
+                "color": {"red": numColor[0], "green": numColor[1], "blue": numColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "keypad",
+                "mode": "color",
+                "color": {"red": numPadColor[0], "green": numPadColor[1], "blue": numPadColor[2]}
+            }
+        ];
+
+        var keyColorEventName = "KEYBOARD_COLOR_STATIC";
+
+        this.sendGenericEvent(keyColorEventName, handlers, 100);
+    },
+    sendWASDColor: function () {
+
+        var WASDColor = $("#keyColorWASD")[0].jscolor.rgb;
+        var shadowString = "0px 0px 35px 1px rgba(" + Math.floor(WASDColor[0]) + "," + Math.floor(WASDColor[1]) + "," + Math.floor(WASDColor[2]) + ",1)";
+
+        $(".key").css("box-shadow", shadowString);
+
+        var keyColorEventName = "KEYBOARD_COLOR_WASD";
+
+        var handlers = [
+            {
+                "device-type": "keyboard",
+                "zone": "w",
+                "mode": "color",
+                "color": {"red": WASDColor[0], "green": WASDColor[1], "blue": WASDColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "a",
+                "mode": "color",
+                "color": {"red": WASDColor[0], "green": WASDColor[1], "blue": WASDColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "s",
+                "mode": "color",
+                "color": {"red": WASDColor[0], "green": WASDColor[1], "blue": WASDColor[2]}
+            },
+            {
+                "device-type": "keyboard",
+                "zone": "d",
+                "mode": "color",
+                "color": {"red": WASDColor[0], "green": WASDColor[1], "blue": WASDColor[2]}
+            }
+        ];
+
+        this.sendGenericEvent(keyColorEventName, handlers, 100);
+    },
+    // TODO: Does not work right now...
+    removeAllEvents: function () {
+
+        var eventNames = ["KEYBOARD_COLOR_STATIC"];
+
+        var _control = this;
+        eventNames.forEach(function(d, i) {
+
+            var json = {
+                "game": _control.gameName,
+                "event": d
+            };
+
+            _control.sendAjaxRequest("/remove_game_event", json, function () {
+            }, function () {
+            });
+        })
     }
 
 };

@@ -207,20 +207,60 @@
             </button>
         </div>
 
-        <h4>Displaykontrolle</h4>
-        <p>Statischen Text senden: <input type="text" id="mouseStaticText"></p>
-        <button type="button" class="btn btn-primary" onclick="Control.sendStaticText()">Senden</button>
-        <button type="button" class="btn btn-info" onclick="Control.sendHelloWorldAnimation()">Hello World! -
-            Animation
-        </button>
-        <br><br>
-        <p>Du bist # <input type="number" id="mouseNumber">
-            <button type="button" class="btn btn-primary" onclick="Control.sendNumberText()">Senden</button>
-        </p>
-
+        <div id="mouseText">
+            <h4>Displaykontrolle</h4>
+            <p>Statischen Text senden: <input type="text" id="mouseStaticText"></p>
+            <button type="button" class="btn btn-primary" onclick="Control.sendStaticText()">Senden</button>
+            <button type="button" class="btn btn-info" onclick="Control.sendHelloWorldAnimation()">Hello World! -
+                Animation
+            </button>
+            <br><br>
+            <p>Du bist # <input type="number" id="mouseNumber">
+                <button type="button" class="btn btn-primary" onclick="Control.sendNumberText()">Senden</button>
+            </p>
+        </div>
     </div>
-    <div class="col-md-3"><h2>Tastatur</h2></div>
-    <div class="col-md-3"><h2>MousePad</h2></div>
+    <div class="col-md-3">
+        <h2>Tastatur</h2>
+        <div id="keyboardColor">
+            <h4>Farben nach Zonen setzen</h4>
+            <p>Hauptfarbe: <input class="jscolor" value="AAAAAA" id="keyColorMain"></p>
+            <p>Funktionstasten: <input class="jscolor" value="AAAAAA" id="keyColorFunction"></p>
+            <p>Zahlentasten: <input class="jscolor" value="AAAAAA" id="keyColorNum"></p>
+            <p>Zahlenblock: <input class="jscolor" value="AAAAAA" id="keyColorNumPad"></p>
+            <button type="button" class="btn btn-primary" onclick="Control.sendKeyBoardColor()">Farbe ändern</button>
+
+            <h4>WASD-Block herausheben</h4>
+            <p>WASD-Farbe: <input class="jscolor" value="AAAAAA" id="keyColorWASD"></p>
+            <button type="button" class="btn btn-primary" onclick="Control.sendWASDColor()">Farbe ändern</button>
+            <br>
+            <div id="WASDpresenter">
+                <div class="row align-items-center">
+                    <div class="col-md-1 ">&nbsp;</div>
+                    <div class="col-md-1 key">W</div>
+                    <div class="col-md-1">&nbsp;</div>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-1 key">A</div>
+                    <div class="col-md-1 key">S</div>
+                    <div class="col-md-1 key">D</div>
+                </div>
+            </div>
+
+
+            <h4>Farbübergang setzen</h4>
+            <p><i>Noch nicht implementiert</i></p>
+            <h4>Zufällige Farben generieren</h4>
+            <p><i>Noch nicht implementiert</i></p>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h2>MousePad</h2>
+        <div id="mousePadColor">
+            <h4>Einzelne Farbe setzen</h4>
+            <p><i>Noch nicht implementiert</i></p>
+        </div>
+    </div>
 </div>
 <script type="text/javascript">
     Control.init()
